@@ -40,8 +40,8 @@ const JobSeekerSignup = () => {
     // Validation can be added here
     
     try {
-      const response = await fetch('http://localhost:8000/organization/signup', { // Replace with your API endpoint
-        method: 'POST',
+      const response = await fetch(process.env.REACT_APP_orgsignup_api, { // Replace with your API endpoint
+        method: process.env.REACT_APP_orgsignup_method,
         headers: {
           'Content-Type': 'application/json',
           
@@ -51,7 +51,7 @@ const JobSeekerSignup = () => {
       
       const data = await response.json();
       if (response.ok) {
-        console.log('Registration successful', data);
+        // console.log('Registration successful', data);
         alert("successfully created");
         navigate("/organization/login")
 
@@ -69,19 +69,17 @@ const JobSeekerSignup = () => {
   return (
     <div className="signup-container">
       <h1 className="form-title">Organization or Job Provider</h1>
-      <div className="signup-form">
-        <h2 className="form-subtitle">Signup</h2>
+      <div id="i145" className="signup-form">
+        <h2 id="i146" className="form-subtitle">Signup</h2>
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
+          <input id="i147"
             name="name"
             value={formData.name}
             onChange={handleChange}
             placeholder="Name"
             className="form-input"
           />
-          <input
-            type="email"
+          <input id="i147"
             name="email"
             value={formData.email}
             onChange={handleChange}
@@ -90,8 +88,8 @@ const JobSeekerSignup = () => {
           />
           
           <div className="password-container">
-            <input
-              type={showPassword ? "text" : "password"}
+            <input id="i147"
+              type={showPassword ? "" : "password"}
               name="password"
               value={formData.password}
               onChange={handleChange}
@@ -108,8 +106,8 @@ const JobSeekerSignup = () => {
           </div>
           
           <div className="password-container">
-            <input
-              type={showConfirmPassword ? "text" : "password"}
+            <input id="i147"
+              type={showConfirmPassword ? "" : "password"}
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
@@ -126,16 +124,14 @@ const JobSeekerSignup = () => {
           </div>
           
           <div className="address-container">
-            <input
-              type="text"
+            <input id="i147"
               name="country"
               value={formData.country}
               onChange={handleChange}
               placeholder="Country"
               className="form-input small-input"
             />
-            <input
-              type="text"
+            <input id="i147"
               name="state"
               value={formData.state}
               onChange={handleChange}
@@ -144,8 +140,7 @@ const JobSeekerSignup = () => {
             />
           </div>
           <div className="address-container">
-            <input
-              type="text"
+            <input id="i147"
               name="city"
               value={formData.city}
               onChange={handleChange}
@@ -154,7 +149,7 @@ const JobSeekerSignup = () => {
             />
           </div>
 
-          <button type="submit" className="submit-button">Signup</button>
+          <button id="i148" type="submit" className="submit-button">Signup</button>
         </form>
       </div>
     </div>

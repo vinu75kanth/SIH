@@ -16,8 +16,8 @@ const Posts = () => {
     // Define an async function inside the useEffect
     const fetchPosts = async () => {
       try {
-        const response = await fetch("http://localhost:8000/public/getpost", {
-          method: "POST",
+        const response = await fetch(process.env.REACT_APP_community_api, {
+          method: process.env.REACT_APP_community_method,
           headers: {
             "Content-Type": "application/json",
           },
@@ -55,10 +55,7 @@ const Posts = () => {
           {posts.length > 0 ? (
             posts.map((post) => (
               <div className="post-card" key={post._id}>
-                <div className="post-image">
-                  {/* Assuming you have a way to include image URLs */}
-                  <img className="postimage" src={post.src} alt={post.title} />
-                </div>
+                
                 <div className="post-content">
                   <h2>{post.title}</h2>
                   <p>{post.description}</p>

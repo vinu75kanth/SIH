@@ -13,14 +13,14 @@ function Interview() {
   useEffect(() => {
     const fetchSkillData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/public/getmcq", {
-          method: "POST",
+        const response = await fetch(process.env.REACT_APP_mcq_api, {
+          method: process.env.REACT_APP_mcq_method,
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({ "id" : id }) // Send the id in the request body
         });
-        console.log(response);
+        // console.log(response);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -72,8 +72,8 @@ function Interview() {
           <div className='interview-box-right'></div>
         </div>
       </div>
-      <div>
-        <p>Skill Assessment: {skillData?.TestName || "Loading..."}</p>
+      <div className="hi111">
+        <p className="hi100">Skill Assessment: {skillData?.TestName || "Loading..."}</p>
         <div className='questions-container'>
           {skillData?.questions?.length > 0 ? ( // Check if skillData and questions are defined
             skillData.questions.map((question, index) => (

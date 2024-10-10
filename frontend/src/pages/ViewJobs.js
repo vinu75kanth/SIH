@@ -33,8 +33,8 @@ function JobBoard() {
       setLoading(true);
       setError('');
       try {
-        const response = await fetch("http://localhost:8000/public/jobs", {
-          method: "POST",
+        const response = await fetch(process.env.REACT_APP_viewjobs_api, {
+          method: process.env.REACT_APP_viewjobs_method,
           credentials: "include",
           headers: {
             'Content-Type': 'application/json'
@@ -63,8 +63,8 @@ function JobBoard() {
     setError('');
     setCurrentPage(1); // Reset pagination
     try {
-      const response = await fetch("http://localhost:8000/user/suggestedjob", {
-        method: "POST",
+      const response = await fetch(process.env.REACT_APP_suggested_jobs, {
+        method: process.env.REACT_APP_suggested_jobs_method,
         credentials: "include",
         headers: {
           'Content-Type': 'application/json'
@@ -104,8 +104,8 @@ function JobBoard() {
     setError('');
     setCurrentPage(1); // Reset pagination
     try {
-      const response = await fetch("http://localhost:8000/public/filterjobs", {
-        method: "POST",
+      const response = await fetch(process.env.REACT_APP_filter_jobs, {
+        method: process.env.REACT_APP_filter_jobs_method,
         credentials: "include",
         headers: {
           'Content-Type': 'application/json'
@@ -137,11 +137,11 @@ function JobBoard() {
             value={experienceLevel}
             onChange={(e) => { setExperienceLevel(e.target.value); handleFilter(); }}
           >
-            <option value="">Experience Level</option>
-            <option value="Intern">Intern</option>
-            <option value="Junior">Junior</option>
-            <option value="Mid">Mid</option>
-            <option value="Senior">Senior</option>
+            <option id="i13" value="">Experience Level</option>
+            <option id="i13" value="Intern">Intern</option>
+            <option id="i13" value="Junior">Junior</option>
+            <option id="i13" value="Mid">Mid</option>
+            <option id="i13" value="Senior">Senior</option>
           </select>
 
           {/* Location Dropdown */}
@@ -150,11 +150,11 @@ function JobBoard() {
             value={location}
             onChange={(e) => { setLocation(e.target.value); handleFilter(); }}
           >
-            <option value="">Location</option>
-            <option value="Bengaluru">Bengaluru</option>
-            <option value="Pune">Pune</option>
-            <option value="Chennai">Chennai</option>
-            <option value="Remote">Remote</option>
+            <option id="i13" value="">Location</option>
+            <option id="i13" value="Bengaluru">Bengaluru</option>
+            <option id="i13" value="Pune">Pune</option>
+            <option id="i13" value="Chennai">Chennai</option>
+            <option id="i13" value="Remote">Remote</option>
           </select>
 
           {/* Suggest Me Jobs Button */}

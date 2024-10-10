@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable no-undef */
+import React, { useState,useEffect } from 'react';
 import './profile.css';
 import Modal from './Model'; // Make sure this is imported correctly
 import edit from './images/edit.png';
@@ -15,6 +16,7 @@ import leetcode from './images/leetcode.svg'
 import hackerrank from './images/hackerrank.svg'
 import github from './images/github.svg'
 
+
 // import profile from './images/logesh.jpg'
 import './Model.css';
 
@@ -22,7 +24,7 @@ const ProfilePage = () => {
   // Get user data from Redux store
 
   const userData = useSelector(selectUser);
-  console.log(userData);
+  // console.log(userData);
 
   // Initialize state variables
   const [isEditingAbout, setIsEditingAbout] = useState(false);
@@ -56,8 +58,9 @@ const ProfilePage = () => {
   // Save updated about section
   const handleSaveAbout = async () => {
     setIsEditingAbout(false);
-    const updateUser = await fetch("http://localhost:8000/user/adddetails", {
-      method: 'POST',
+    // console.log("aboutText : ", process.env.REACT_APP_saveabout_api);
+    const updateUser = await fetch(process.env.REACT_APP_saveabout_api, {
+      method: "POST",
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
@@ -67,7 +70,7 @@ const ProfilePage = () => {
       })
     });
     const data = await updateUser.json();
-    console.log("data : ", data);
+    // console.log("data : ", data);
     window.location.reload(); // Reload the page to clear state and redirect to login
   };
 
@@ -77,8 +80,8 @@ const ProfilePage = () => {
     if (newSkill) {
       const updatedSkills = [...skills, newSkill];
       setSkills(updatedSkills);
-      const updateUser = await fetch("http://localhost:8000/user/adddetails", {
-        method: 'POST',
+      const updateUser = await fetch(process.env.REACT_APP_addskill_api, {
+        method: process.env.REACT_APP_addskill_method,
         credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
@@ -88,7 +91,7 @@ const ProfilePage = () => {
         })
       });
       const data = await updateUser.json();
-      console.log("data : ", data);
+      // console.log("data : ", data);
       window.location.reload(); // Reload the page to clear state and redirect to login
     }
   };
@@ -100,8 +103,8 @@ const ProfilePage = () => {
       return;
     }
     // Send new project data to the server (optional)
-    const updateUser = await fetch("http://localhost:8000/user/adddetails", {
-      method: 'POST',
+    const updateUser = await fetch(process.env.REACT_APP_addproject_api, {
+      method: process.env.REACT_APP_addproject_method,
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
@@ -111,7 +114,7 @@ const ProfilePage = () => {
       })
     });
     const data = await updateUser.json();
-    console.log("data : ", data);
+    // console.log("data : ", data);
     setIsAddProjectModalOpen(false);
     window.location.reload(); // Reload the page to clear state and redirect to login
   };
@@ -119,8 +122,8 @@ const ProfilePage = () => {
   // Add a new experience
   const handleAddExperience = async () => {
     // Send new experience data to the server (optional)
-    const updateUser = await fetch("http://localhost:8000/user/adddetails", {
-      method: 'POST',
+    const updateUser = await fetch(process.env.REACT_APP_addexperience_api , {
+      method: process.env.REACT_APP_addexperience_method,
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
@@ -130,7 +133,7 @@ const ProfilePage = () => {
       })
     });
     const data = await updateUser.json();
-    console.log("data : ", data);
+    // console.log("data : ", data);
     setIsAddExperienceModalOpen(false);
     window.location.reload(); // Reload the page to clear state and redirect to login
   };
@@ -147,47 +150,55 @@ const ProfilePage = () => {
     setIsShowMoreExperiencesOpen(true);
   };
 
+  // Fetch leetcode details
+
+  
+
   // If no user data is available yet
   if (!userData) return <p>Loading...</p>;
 
   return (
+    
     <div className="container">
       {/* Profile Header */}
       <div className="profile-header">
-        <div className="profile-left">
-          <img
-            src={userData.profilepic || dummyIcon}
-            alt="Profile Picture"
-            className="profile-picture"
-          />
-          <h2 id="pro-name">{userData.name}</h2>
-          <p className="location">
-            {userData.city}, {userData.state}, {userData.country}
-          </p>
-        </div>
-        <div>
-          <div className='heatmap-container'>
-            <HeatMap msg={'Jan'}/>
-            <HeatMap msg={'Feb'}/>
-            <HeatMap msg={'Mar'}/>
-            <HeatMap msg={'Apr'}/>
-            <HeatMap msg={'May'}/>
-            <HeatMap msg={'Sep'}/>
-            <HeatMap msg={'Oct'}/>
-            <HeatMap msg={'Nov'}/>
-            <HeatMap msg={'Dec'}/>
+          <div className="profile-left">
+            <img
+              src={userData.profilepic || dummyIcon}
+              alt="Profile Picture"
+              className="profile-picture"
+            />
+            <h2 id="pro-name">{userData.name}</h2>
+            <p className="location">
+              {userData.city}, {userData.state}, {userData.country}
+            </p>
           </div>
-          <div className='images-con'>
-            <a href="https://leetcode.com/u/vinukanth75/" target='blank'><img src={leetcode} className='logoo'></img></a>
-            <a href="https://www.hackerrank.com/profile/vinukanth75" target='blank'><img src={hackerrank} className='logoo'></img></a>
-            <a href="https://github.com/vinu75kanth" target='blank'><img src={github} className='logoo'></img></a>
+
+
+          <div>
+            <div className='heatmap-container'>
+                <HeatMap msg={'Jan'}/>
+                <HeatMap msg={'Feb'}/>
+                <HeatMap msg={'Mar'}/>
+                <HeatMap msg={'Apr'}/>
+                <HeatMap msg={'May'}/>
+                <HeatMap msg={'Sep'}/>
+                <HeatMap msg={'Oct'}/>
+                <HeatMap msg={'Nov'}/>
+                <HeatMap msg={'Dec'}/>
+            </div>
+            <div className='images-con'>
+                <a href="https://leetcode.com/u/vinukanth75/" target='blank'><img src={leetcode} className='logoo'></img></a>
+                <a href="https://www.hackerrank.com/profile/vinukanth75" target='blank'><img src={hackerrank} className='logoo'></img></a>
+                <a href="https://github.com/vinu75kanth" target='blank'><img src={github} className='logoo'></img></a>
+            </div>
           </div>
-        </div>
       </div>
 
       <div className="complete">
         <div className="about">
           {/* About Section */}
+          <div className="about1">
           <div className="about-section">
             <div className="about-section-a">
               <div className='simply'>
@@ -224,9 +235,10 @@ const ProfilePage = () => {
             </div>
           </div>
         </div>
+        </div>
 
         {/* Experience Section */}
-        <h3 className="exp-h3">Experience</h3>
+        <h3 className="exp-h3">Experiences</h3>
         <div className="experience-section">
           {(userData.experiences || []).slice(0, visibleExperiencesCount).map((experience, index) => (
             <div key={index} className="experience-item">
@@ -236,8 +248,8 @@ const ProfilePage = () => {
                 <p>{experience.company}</p>
               </div>
               <div id="exp1">
-                <h4 className="title">{experience.title}</h4>
-                <p>{new Date(experience.startDate).toLocaleDateString()} - {experience.endDate ? new Date(experience.endDate).toLocaleDateString() : 'Present'}</p>
+                <h4 id="hi10" className="title">{experience.title}</h4>
+                <p  id="hi11">{new Date(experience.startDate).toLocaleDateString()} - {experience.endDate ? new Date(experience.endDate).toLocaleDateString() : 'Present'}</p>
                 <p className="description">{experience.description}</p>
               </div>
             </div>
